@@ -77,20 +77,28 @@
 	path = /obj/item/ammo_magazine/akm/hp
 	hidden = 1
 
+/datum/category_item/autolathe/arms/akm_762x39_rubber
+	name = "AKM magazine (7.62x39mm less-lethal)"
+	path = /obj/item/ammo_magazine/akm/rubber
+
 /datum/category_item/autolathe/arms/m16_556
-	name = "M16 magazine (5.56x45mm standard)"
+	name = "STANAG magazine (5.56x45mm standard)"
 	path = /obj/item/ammo_magazine/m16
 	hidden = 1
 
 /datum/category_item/autolathe/arms/m16_556_ap
-	name = "M16 magazine (5.56x45mm armor-piercing)"
+	name = "STANAG magazine (5.56x45mm armor-piercing)"
 	path = /obj/item/ammo_magazine/m16/ap
 	hidden = 1
 
 /datum/category_item/autolathe/arms/m16_556_hp
-	name = "M16 magazine (5.56x45mm hollow-point)"
+	name = "STANAG magazine (5.56x45mm hollow-point)"
 	path = /obj/item/ammo_magazine/m16/hp
 	hidden = 1
+
+/datum/category_item/autolathe/arms/m16_556_rubber
+	name = "STANAG magazine (5.56x45mm less-lethal)"
+	path = /obj/item/ammo_magazine/m16/rubber
 
 /datum/category_item/autolathe/arms/sks_762
 	name = "SKS Clip (10x 7.62x39 standard)"

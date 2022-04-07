@@ -252,6 +252,15 @@ only use the hollow_point and armor_penetration values.*/
 	hollow_point = TRUE
 	armor_penetration = -10
 
+/obj/item/projectile/bullet/rifle/a762x39/rubber
+	grains = 130
+	damage = 10
+	velocity = 500
+	agony = 70
+	embed_chance = 0
+	sharp = FALSE
+	check_armour = "melee"
+
 /obj/item/projectile/bullet/rifle/a545
 	fire_sound = 'sound/weapons/ballistics/a545.ogg'
 	diam = 5.6
@@ -281,6 +290,15 @@ only use the hollow_point and armor_penetration values.*/
 /obj/item/projectile/bullet/rifle/a556/hp
 	hollow_point = TRUE
 	armor_penetration = -10
+
+/obj/item/projectile/bullet/rifle/a556/rubber // Less-lethal options for rifles // Rubber shots have less powder, but these still have more punch than normal rubber shot.
+	grains = 60
+	damage = 10
+	velocity = 370
+	agony = 60
+	embed_chance = 0
+	sharp = FALSE
+	check_armour = "melee"
 
 /obj/item/projectile/bullet/rifle/a145 // 14.5×114mm
 	fire_sound = 'sound/weapons/ballistics/a145.ogg'

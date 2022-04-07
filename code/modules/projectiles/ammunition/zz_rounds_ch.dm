@@ -113,6 +113,11 @@
 	desc = "A hollow point 7.62x39mm round"
 	projectile_type = /obj/item/projectile/bullet/rifle/a762x39/hp
 
+/obj/item/ammo_casing/a762x39/rubber
+	desc = "A less-lethal 7.62x39mm round This is still a rifle round, so be careful!"
+	projectile_type = /obj/item/projectile/bullet/rifle/a762x39/rubber
+
+
 /obj/item/ammo_casing/a556
 	desc = "A standard 5.56x45mm round"
 	caliber = "5.56x45mm"
@@ -126,6 +131,10 @@
 /obj/item/ammo_casing/a556/hp
 	desc = "A hollow point 5.56x45mm round"
 	projectile_type = /obj/item/projectile/bullet/rifle/a556/hp
+
+/obj/item/ammo_casing/a556/rubber
+	desc = "A less-lethal 5.56x45mm round. This is still a rifle round, so be careful!"
+	projectile_type = /obj/item/projectile/bullet/rifle/a556/rubber
 
 /obj/item/ammo_casing/a10x24
 	desc = "A standard 10x24mm caseless round"

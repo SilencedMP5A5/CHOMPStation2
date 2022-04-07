@@ -112,6 +112,13 @@
 	matter = list(DEFAULT_WALL_MATERIAL = 2000)
 	ammo_type = /obj/item/ammo_casing/a762x39/hp
 
+/obj/item/ammo_magazine/akm/rubber
+	name = "AKM magazine (7.62x39mm less-lethal)"
+	icon_state = "762magrubber"
+	desc = "A magazine with a blue rubberband wrapped around it, to indicate less-lethal munitions. Emphasis on LESS lethal."
+	matter = list(DEFAULT_WALL_MATERIAL = 1200)
+	ammo_type = /obj/item/ammo_casing/a762x39/rubber
+
 /obj/item/ammo_magazine/ak74
 	name = "AK74 magazine (5.45mm standard)"
 	icon = 'icons/obj/ammo_ch.dmi'
@@ -148,17 +155,25 @@
 	ammo_type = /obj/item/ammo_casing/a556
 
 /obj/item/ammo_magazine/m16/ap
-	name = "M16 magazine (5.56x45mm armor-piercing)"
+	name = "STANAG magazine (5.56x45mm armor-piercing)"
 	matter = list(DEFAULT_WALL_MATERIAL = 1700)
 	ammo_type = /obj/item/ammo_casing/a556/ap
 
 /obj/item/ammo_magazine/m16/hp
-	name = "M16 magazine (5.56x45mm hollow-point)"
+	name = "STANAG magazine (5.56x45mm hollow-point)"
 	matter = list(DEFAULT_WALL_MATERIAL = 1700)
 	ammo_type = /obj/item/ammo_casing/a556/hp
 
+/obj/item/ammo_magazine/m16/rubber
+	name = "STANAG magazine (5.56x45mm less-lethal)"
+	desc = "A magazine with a blue rubberband wrapped around it, to indicate less-lethal munitions. Emphasis on LESS lethal."
+	icon = 'icons/obj/ammo_ch.dmi'
+	icon_state = "556magrubber"
+	matter = list(DEFAULT_WALL_MATERIAL = 1200)
+	ammo_type = /obj/item/ammo_casing/a556/rubber
+
 /obj/item/ammo_magazine/m16/patriot
-	name = "Patriot magazine (5.56x45mm standard)"
+	name = "Patriot drum magazine (5.56x45mm standard)"
 	matter = list(DEFAULT_WALL_MATERIAL = 5000)
 	max_ammo = 100
 	icon_state = "patriotmag"
@@ -451,7 +466,7 @@
 	name = "TP-23 TS magazine (.44 magnum standard)"
 	icon = 'icons/obj/ammo_ch.dmi'
 	icon_state = "45mag"
-	max_ammo = 12
+	max_ammo = 10
 	mag_type = MAGAZINE
 	caliber = ".44"
 	matter = list(DEFAULT_WALL_MATERIAL = 800)
@@ -471,7 +486,7 @@
 	name = "TP-23 magazine (.45 ACP)"
 	icon = 'icons/obj/ammo_ch.dmi'
 	icon_state = "45mag"
-	max_ammo = 12
+	max_ammo = 14
 	mag_type = MAGAZINE
 	caliber = ".45"
 	matter = list(DEFAULT_WALL_MATERIAL = 800)
