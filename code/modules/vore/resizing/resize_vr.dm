@@ -3,12 +3,12 @@
 /mob
 	var/step_mechanics_pref = TRUE		// Allow participation in macro-micro step mechanics
 	var/pickup_pref = TRUE				// Allow participation in macro-micro pickup mechanics
+	var/center_offset = 0.5				// Center offset for uneven scaling symmetry.
+	var/offset_override = FALSE			// Pref toggle for center offset.
 
 /mob/living
 	var/holder_default
 	var/pickup_active = TRUE			// Toggle whether your help intent picks up micros or pets them
-	var/center_offset = 0.5				// Center offset for uneven scaling symmetry. //CHOMPEdit
-	var/offset_override = FALSE			// Pref toggle for center offset. //CHOMPEdit
 
 // Define holder_type on types we want to be scoop-able
 /mob/living/carbon/human
@@ -32,12 +32,12 @@
 /mob/living/update_icons()
 	. = ..()
 	ASSERT(!ishuman(src))
-	var/cent_offset = center_offset //ChompEDIT
-	if(fuzzy || offset_override || dir == EAST || dir == WEST) //CHOMPEdit
-		cent_offset = 0 //CHOMPEdit
+	var/cent_offset = center_offset
+	if(fuzzy || offset_override || dir == EAST || dir == WEST)
+		cent_offset = 0
 	var/matrix/M = matrix()
 	M.Scale(size_multiplier * icon_scale_x, size_multiplier * icon_scale_y)
-	M.Translate(cent_offset * size_multiplier * icon_scale_x, (vis_height/2)*(size_multiplier-1)) //CHOMPEdit
+	M.Translate(cent_offset * size_multiplier * icon_scale_x, (vis_height/2)*(size_multiplier-1))
 	transform = M
 
 /**
@@ -251,6 +251,8 @@
 				var/datum/sprite_accessory/tail/taur/tail = H.tail_style
 				src_message = tail.msg_prey_stepunder
 				tmob_message = tail.msg_owner_stepunder
+			if(tmob.is_incorporeal())	// CHOMPEdit - Can't run between what's not there
+				return TRUE
 
 		if(src_message)
 			to_chat(src, "<span class='filter_notice'>[STEP_TEXT_OWNER(src_message)]</span>")

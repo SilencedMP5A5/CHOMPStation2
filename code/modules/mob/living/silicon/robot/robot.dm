@@ -108,6 +108,7 @@
 		/mob/living/silicon/robot/proc/sensor_mode,
 		/mob/living/silicon/robot/proc/robot_checklaws,
 		/mob/living/silicon/robot/proc/robot_mount,
+		/mob/living/silicon/robot/proc/ex_reserve_refill, //CHOMPEdit re-adds the extinquisher refill from water
 		/mob/living/proc/toggle_rider_reins,
 		/mob/living/proc/shred_limb
 	)
@@ -150,9 +151,7 @@
 		C.wrapped = new C.external_type
 
 	if(!cell)
-		cell = new /obj/item/weapon/cell(src)
-		cell.maxcharge = 7500
-		cell.charge = 7500
+		cell = new /obj/item/weapon/cell/robot_station(src)
 	else if(ispath(cell))
 		cell = new cell(src)
 
@@ -178,6 +177,44 @@
 /mob/living/silicon/robot/LateInitialize()
 	. = ..()
 	update_icon()
+
+/mob/living/silicon/robot/rejuvenate()
+	for (var/V in components)
+		var/datum/robot_component/C = components[V]
+		if(istype(C.wrapped, /obj/item/broken_device))
+			qdel(C.wrapped)
+			C.wrapped = null
+		if(!C.wrapped)
+			switch(V)
+				if("actuator")
+					C.wrapped = new /obj/item/robot_parts/robot_component/actuator(src)
+				if("radio")
+					C.wrapped = new /obj/item/robot_parts/robot_component/radio(src)
+				if("power cell")
+					var/list/recommended_cells = list(/obj/item/weapon/cell/robot_station, /obj/item/weapon/cell/high, /obj/item/weapon/cell/super, /obj/item/weapon/cell/robot_syndi, /obj/item/weapon/cell/hyper,
+						/obj/item/weapon/cell/infinite, /obj/item/weapon/cell/potato, /obj/item/weapon/cell/slime)
+					var/list/cell_names = list()
+					for(var/cell_type in recommended_cells)
+						var/obj/item/weapon/cell/single_cell = cell_type
+						cell_names[capitalize(initial(single_cell.name))] = cell_type
+					var/selected_cell = tgui_input_list(usr, "What kind of cell do you want to install? Cancel installs a default robot cell.", "Cells", cell_names)
+					if(!selected_cell || selected_cell == "Cancel")
+						selected_cell = "A standard robot power cell"
+					var/new_power_cell = cell_names[capitalize(selected_cell)]
+					cell = new new_power_cell(src)
+					C.wrapped = cell
+				if("diagnosis unit")
+					C.wrapped = new /obj/item/robot_parts/robot_component/diagnosis_unit(src)
+				if("camera")
+					C.wrapped = new /obj/item/robot_parts/robot_component/camera(src)
+				if("comms")
+					C.wrapped = new /obj/item/robot_parts/robot_component/binary_communication_device(src)
+				if("armour")
+					C.wrapped = new /obj/item/robot_parts/robot_component/armour(src)
+			C.installed = 1
+			C.install()
+	cell.charge = cell.maxcharge
+	..()
 
 /mob/living/silicon/robot/proc/init()
 	aiCamera = new/obj/item/device/camera/siliconcam/robot_camera(src)
@@ -483,6 +520,16 @@
 	else
 		stat(null, text("No Cell Inserted!"))
 
+// function to toggle VTEC once installed
+/mob/living/silicon/robot/proc/toggle_vtec()
+    set name = "Toggle VTEC"
+    set category = "Abilities"
+    if(speed == -1)
+        to_chat(src, "<span class='filter_notice'>VTEC module disabled.</span>")
+        speed = 0
+    else
+        to_chat(src, "<span class='filter_notice'>VTEC module enabled.</span>")
+        speed = -1
 
 // update the status screen display
 /mob/living/silicon/robot/Stat()
@@ -902,7 +949,7 @@
 				if(LAZYLEN(vore_selected.contents) > 0)
 					for(var/borgfood in vore_selected.contents) //"inspired" (kinda copied) from Chompstation's belly fullness system's procs
 						if(istype(borgfood, /mob/living))
-							if(vore_selected.belly_item_mult <= 0) //If mobs dont contribute, dont calculate further
+							if(vore_selected.belly_mob_mult <= 0) //If mobs dont contribute, dont calculate further
 								continue
 							var/mob/living/prey = borgfood //typecast to living
 							belly_size += (prey.size_multiplier / size_multiplier) / vore_selected.belly_mob_mult //Smaller prey are less filling to larger bellies
